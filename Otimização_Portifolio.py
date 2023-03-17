@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import yfinance as yf
 
-tickers = [ 'PETZ3.SA', 'VIVA3.SA','VIIA3.SA','AESB3.SA']
+tickers = [ 'PETZ3.SA', 'VIVA3.SA','VIIA3.SA','AZUL4.SA']
 carteira = pd.DataFrame()
 for i in tickers:
   carteira[i] = yf.download(i, period='1y')['Adj Close']
@@ -38,7 +38,7 @@ for carteira in range(num_carteiras):
   lista_volatilidade.append(desvio_padrao)
 
   #calculo Sharpe ratio
-  sharpe_ratio = (retorno_esperado - Rf) / desvio_padrao
+  sharpe_ratio = (retorno_esperado - Rf) / desvio_padrao 
   lista_sharpe_ratio.append(sharpe_ratio)
 
 
@@ -59,7 +59,7 @@ min_Risco = portifolios_df.iloc[portifolios_df['Risco'].astype(float).idxmin()]
 max_Retorno = portifolios_df.iloc[portifolios_df['Retorno'].astype(float).idxmax()]
 max_Sharpe = portifolios_df.iloc[portifolios_df['Sharpe'].astype(float).idxmax()]
 
-#portifolios_df.to_csv("10000portifolios_4acoes.csv")
+portifolios_df.to_csv("10portifolios_4smallcaps.csv")
 
 
 print(portifolios_df)
@@ -86,8 +86,5 @@ plt.ylabel('Retorno', fontsize = 20)
 plt.xticks(fontsize = 15)
 plt.yticks(fontsize = 15)
 plt.colorbar(label = 'Sharpe Ratio')
-plt.figure(y=[carteira.loc[min_Risco]['retorno']], 
-                x=[carteira.loc[min_Risco]['volatilidade']],                  
-                )
 plt.show()
 
